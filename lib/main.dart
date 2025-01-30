@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:woocommerse_app/pages/login_page.dart';
 import 'package:woocommerse_app/pages/signup_page.dart';
 
 void main() {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SignupPage(),
+      home: LoginPage(),
     );
   }
 }
