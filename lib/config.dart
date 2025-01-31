@@ -5,4 +5,9 @@ class Config {
   static String url = "https://dunnheatingoil.com/wp-json/wc/v3/";
   static String customerURL = "customers";
   static String tokenURL = "https://dunnheatingoil.com/wp-json/jwt-token/v1/token";
+  static String appName = "WooCommerce App";
+  static String productsUrl = "products";
+  static String todayOffersTagId = "";
+  static String topSellingProductsTagId = "";
+  
 }

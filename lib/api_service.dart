@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:woocommerse_app/config.dart';
 import 'package:woocommerse_app/models/customer.dart';
 import 'package:woocommerse_app/models/login_model.dart';
+import 'package:woocommerse_app/models/product.dart';
 
 class ApiService {
   Future<bool> createCustomer(CustomerModel? model) async {
@@ -52,5 +53,60 @@ class ApiService {
     }
 
     return model;
+  }
+
+  Future<List<Product>> getProducts({int? pageNumber, int? pageSize, String? strSearch ,String? tagName,String? categoryId, String? sortBy, String? sortOrder = "asc"} ) async{
+    List<Product> data = [];
+
+    try{
+
+      String parameter = "";
+      if (strSearch != null){
+        parameter += "&search=$strSearch";
+      }
+      if (pageSize != null){
+        parameter += "&per_page=$pageSize";
+      }
+      if (pageNumber != null){
+        parameter += "&page=$pageNumber";
+      }
+      if (tagName != null){
+        parameter += "&tag=$tagName";
+      }
+      if (categoryId != null){
+        parameter += "&category=$categoryId";
+      }
+      if (sortBy != null){
+        parameter += "&orderby=$sortBy";
+      }
+      if (sortOrder != null){
+        parameter += "&order=$sortOrder";
+      }
+
+
+      String url = Config.url + Config.productsUrl + "?" +parameter.toString();
+
+      var response = await Dio().get(
+        url,
+        options: Options(
+          headers: {
+             HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
+            HttpHeaders.contentTypeHeader : "application/json"
+          }
+        )
+        );
+
+        if (response.statusCode == 200) {
+          // convert response.data to List of Product
+          List<dynamic> responseData = response.data;
+      data = responseData.map((json) => Product.fromJson(json)).toList();
+          
+        }
+    } catch(e){
+      print(e.toString());
+    }
+
+    return data;
+    
   }
 }
