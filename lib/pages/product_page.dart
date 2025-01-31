@@ -117,7 +117,12 @@ class _ProductPageState extends BasePageState<ProductPage> {
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(9)),
             child: PopupMenuButton(
-              onSelected: (sortBy) {},
+              onSelected: (sortBy) {
+                var productList = Provider.of<ProductsProvider>(context,listen: false);
+                productList.resetStreams();
+                productList.setSortOrder(sortBy);
+                productList.fetchProducts(_page);
+              },
               itemBuilder: (BuildContext context) {
                 return _sortByOptions.map((item) {
                   return PopupMenuItem(

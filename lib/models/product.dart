@@ -60,6 +60,17 @@ class Product {
       'stock_status': stockStatus,
     };
   }
+
+  calculateDiscount() {
+    double regularPrice = double.parse(this.regularPrice ?? '');
+    double salePrice = this.salePrice != ""
+        ? double.parse(this.salePrice ?? '')
+        : regularPrice;
+    double discount = regularPrice - salePrice;
+    double disPercent = (discount / regularPrice) * 100;
+
+    return disPercent.round();
+  }
 }
 
 class Categories {
