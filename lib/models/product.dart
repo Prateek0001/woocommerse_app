@@ -31,7 +31,7 @@ class Product {
       name: json['name'] as String?,
       price: json['price'] as String?,
       regularPrice: json['regular_price'] as String?,
-      salePrice: json['sale_price'] as String?,
+      salePrice: json['sale_price'] != "" ? json['sale_price'] as String? : json['regular_price'] as String?,
       description: json['description'] as String?,
       shortDescription: json['short_description'] as String?,
       images: (json['images'] as List<dynamic>?)
@@ -62,7 +62,7 @@ class Product {
   }
 
   calculateDiscount() {
-    double regularPrice = double.parse(this.regularPrice ?? '');
+    double regularPrice = double.parse(this.regularPrice ?? '0');
     double salePrice = this.salePrice != ""
         ? double.parse(this.salePrice ?? '')
         : regularPrice;

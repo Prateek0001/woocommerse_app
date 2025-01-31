@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:woocommerse_app/api_service.dart';
@@ -16,6 +18,8 @@ class ProductPage extends BasePage {
 class _ProductPageState extends BasePageState<ProductPage> {
   int _page = 1;
   ScrollController _scrollController = new ScrollController();
+  final _searchQuery = new TextEditingController();
+  Timer? _debounce;
 
   final _sortByOptions = [
     SortBy("popularity", "Popularity", "asc"),
@@ -37,7 +41,19 @@ class _ProductPageState extends BasePageState<ProductPage> {
         productList.fetchProducts(++_page);
       }
     });
+    _searchQuery.addListener(_onSearchChange);
     super.initState();
+  }
+
+  _onSearchChange() {
+    var productList = Provider.of<ProductsProvider>(context, listen: false);
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+
+    _debounce = Timer(const Duration(milliseconds: 1000), () {
+      productList.resetStreams();
+      productList.setLoadingState(LoadMoreStatus.INITIAL);
+      productList.fetchProducts(_page, strSearch: _searchQuery.text);
+    });
   }
 
   @override
@@ -99,6 +115,7 @@ class _ProductPageState extends BasePageState<ProductPage> {
         children: [
           Flexible(
               child: TextField(
+            controller: _searchQuery,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.search),
               hintText: "Search",
@@ -118,7 +135,8 @@ class _ProductPageState extends BasePageState<ProductPage> {
                 borderRadius: BorderRadius.circular(9)),
             child: PopupMenuButton(
               onSelected: (sortBy) {
-                var productList = Provider.of<ProductsProvider>(context,listen: false);
+                var productList =
+                    Provider.of<ProductsProvider>(context, listen: false);
                 productList.resetStreams();
                 productList.setSortOrder(sortBy);
                 productList.fetchProducts(_page);

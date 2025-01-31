@@ -22,6 +22,25 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            // Visibility(
+            //   visible: data.calculateDiscount()>0,
+            //   child: Align(
+            //     alignment: Alignment.topLeft,
+            //     child: Container(
+            //       padding: EdgeInsets.all(5),
+            //       decoration: BoxDecoration(
+            //         color: Colors.green,
+            //         borderRadius: BorderRadius.circular(50),
+            //       ),
+            //       child: Text(
+            //         '${data.calculateDiscount()}% OFF',
+            //         style: TextStyle(
+            //           color: Colors.white,
+            //           fontWeight: FontWeight.w700
+            //         ),
+            //       ),
+            //     ),
+            //   )),
             Flexible(
               child: Stack(
                 alignment: Alignment.center,
