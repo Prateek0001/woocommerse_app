@@ -6,24 +6,25 @@ class Product {
   final String? salePrice;
   final String? description;
   final String? shortDescription;
-  final List<Images>? images;
-  final List<Categories>? categories;
   final String? sku;
   final String? stockStatus;
+  final List<Images>? images;
+  final List<Categories>? categories;
+  final List<Attributes>? attributes;
 
-  Product({
-    this.id,
-    this.name,
-    this.price,
-    this.regularPrice,
-    this.description,
-    this.shortDescription,
-    this.images,
-    this.categories,
-    this.sku,
-    this.stockStatus,
-    this.salePrice,
-  });
+  Product(
+      {this.id,
+      this.name,
+      this.price,
+      this.regularPrice,
+      this.description,
+      this.shortDescription,
+      this.images,
+      this.categories,
+      this.sku,
+      this.stockStatus,
+      this.salePrice,
+      this.attributes});
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
@@ -31,7 +32,9 @@ class Product {
       name: json['name'] as String?,
       price: json['price'] as String?,
       regularPrice: json['regular_price'] as String?,
-      salePrice: json['sale_price'] != "" ? json['sale_price'] as String? : json['regular_price'] as String?,
+      salePrice: json['sale_price'] != ""
+          ? json['sale_price'] as String?
+          : json['regular_price'] as String?,
       description: json['description'] as String?,
       shortDescription: json['short_description'] as String?,
       images: (json['images'] as List<dynamic>?)
@@ -39,6 +42,9 @@ class Product {
           .toList(),
       categories: (json['categories'] as List<dynamic>?)
           ?.map((cat) => Categories.fromJson(cat))
+          .toList(),
+      attributes: (json['attributes'] as List<dynamic>?)
+          ?.map((attr) => Attributes.fromJson(attr))
           .toList(),
       sku: json['sku'] as String?,
       stockStatus: json['stock_status'] as String?,
@@ -109,5 +115,40 @@ class Images {
     return {
       'src': src,
     };
+  }
+}
+
+class Attributes {
+  final int id;
+  final String name;
+  final String slug;
+  final int position;
+  final bool visible;
+  final bool variation;
+  final List<String> options;
+
+  Attributes({
+    required this.id,
+    required this.name,
+    required this.slug,
+    required this.position,
+    required this.visible,
+    required this.variation,
+    required this.options,
+  });
+
+  factory Attributes.fromJson(Map<String, dynamic> json) {
+    return Attributes(
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      slug: json['slug'] ?? '',
+      position: json['position'] ?? 0,
+      visible: json['visible'] ?? false,
+      variation: json['variation'] ?? false,
+      options: (json['options'] as List<dynamic>?)
+              ?.map((option) => option.toString())
+              .toList() ??
+          [],
+    );
   }
 }
