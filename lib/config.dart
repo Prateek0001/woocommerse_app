@@ -9,5 +9,8 @@ class Config {
   static String productsUrl = "products";
   static String todayOffersTagId = "";
   static String topSellingProductsTagId = "";
+  static String addToCartURL = "addtocart";
+  static String cartURL = "cart";
+  static String userId = "5";
   
 }

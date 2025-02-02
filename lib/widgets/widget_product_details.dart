@@ -1,15 +1,22 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:woocommerse_app/models/cart_request_model.dart';
 import 'package:woocommerse_app/models/product.dart';
+import 'package:woocommerse_app/provider/cart_provider.dart';
+import 'package:woocommerse_app/provider/loader_provider.dart';
 import 'package:woocommerse_app/utils/custom_stepper.dart';
 import 'package:woocommerse_app/utils/expand_text.dart';
 
 class ProductDetailsWidget extends StatelessWidget {
-  final Product data;
-  ProductDetailsWidget({super.key, required this.data});
+  Product? data;
+  ProductDetailsWidget({super.key,this.data});
 
   final CarouselSliderController _controller = CarouselSliderController();
   int qty = 0;
+
+  CartProducts cartProducts = CartProducts();
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +30,11 @@ class ProductDetailsWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  productImages(data.images ?? [], context),
+                  productImages(data?.images ?? [], context),
                   SizedBox(
                     height: 5,
                   ),
-                  Text(data.name ?? '',
+                  Text(data?.name ?? '',
                       style: TextStyle(
                           fontSize: 25,
                           color: Colors.black,
@@ -36,13 +43,13 @@ class ProductDetailsWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(data.attributes != null &&
-                              data.attributes!.isNotEmpty
-                          ? (data.attributes![0].options.join("-").toString() +
+                      Text(data?.attributes != null &&
+                              data!.attributes!.isNotEmpty
+                          ? (data!.attributes![0].options.join("-").toString() +
                               "" +
-                              data.attributes![0].name)
+                              data!.attributes![0].name)
                           : ''),
-                      Text(' Rs${data.salePrice}',
+                      Text(' Rs${data?.salePrice}',
                           style: TextStyle(
                             fontSize: 25,
                             color: Colors.black,
@@ -63,10 +70,18 @@ class ProductDetailsWidget extends StatelessWidget {
                           iconSize: 22.0,
                           value: qty,
                           onChanged: (value) {
-                            print(value);
+                            cartProducts.quantity = value;
                           }),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Provider.of<LoaderProvider>(context,listen: false).setLoadingStatus(true);
+                          var cartProvider = Provider.of<CartProvider>(context,listen: false);
+                          cartProducts.productId = data?.id;
+                          cartProvider.addToCart(cartProducts, (val){
+                            Provider.of<LoaderProvider>(context,listen: false).setLoadingStatus(false);
+                            print(val);
+                          });
+                        },
                         child: Container(
                           color: Colors.redAccent,
                           padding: const EdgeInsets.all(15),
@@ -83,8 +98,8 @@ class ProductDetailsWidget extends StatelessWidget {
                   ),
                   ExpandText(
                       labelHeader: "Product Details",
-                      desc: data.description ?? '',
-                      shortDesc: data.shortDescription ?? '')
+                      desc: data?.description ?? '',
+                      shortDesc: data?.shortDescription ?? '')
                 ])
           ],
         ),

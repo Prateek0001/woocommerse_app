@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:woocommerse_app/config.dart';
+import 'package:woocommerse_app/provider/cart_provider.dart';
+import 'package:woocommerse_app/provider/loader_provider.dart';
 import 'package:woocommerse_app/utils/ProgressHUD.dart';
 
 class BasePage extends StatefulWidget {
@@ -14,13 +17,17 @@ class BasePageState<T extends BasePage> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: ProgressHUD(
-        inAsyncCall: isApiCallProcess,
-        opacity: 0.3,
-        child: pageUI() ?? SizedBox(),
-      ),
+    return Consumer<LoaderProvider>(
+      builder: (context, loaderModel, child) {
+        return Scaffold(
+          appBar: _buildAppBar(),
+          body: ProgressHUD(
+            inAsyncCall: loaderModel.isApiCallProcess,
+            opacity: 0.3,
+            child: pageUI() ?? SizedBox(),
+          ),
+        );
+      },
     );
   }
 
@@ -50,6 +57,30 @@ class BasePageState<T extends BasePage> extends State<T> {
           Icons.shopping_cart,
           color: Colors.white,
         ),
+        Provider.of<CartProvider>(context, listen: false).CartItems.isEmpty
+            ? Container()
+            : Positioned(
+                child: Stack(
+                  children: [
+                    Icon(
+                      Icons.brightness_1,
+                      size: 20,
+                      color: Colors.green[800],
+                    ),
+                    Positioned(
+                      top: 4,
+                      right: 4,
+                      child: Center(
+                        child: Text(Provider.of<CartProvider>(context, listen: false).CartItems.toString(),style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500
+                        ),),
+                      ),
+                    )
+                  ],
+                ),
+              ),
         SizedBox(
           width: 10,
         ),

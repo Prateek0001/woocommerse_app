@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:woocommerse_app/config.dart';
+import 'package:woocommerse_app/models/cart_request_model.dart';
+import 'package:woocommerse_app/models/cart_response_model.dart';
 import 'package:woocommerse_app/models/customer.dart';
 import 'package:woocommerse_app/models/login_model.dart';
 import 'package:woocommerse_app/models/product.dart';
@@ -108,5 +110,57 @@ class ApiService {
 
     return data;
     
+  }
+
+  Future<CartResponseModel?> addtocart (CartRequestModel model) async {
+    model.userId = int.parse(Config.userId);
+    CartResponseModel?  responseModel;
+    try {
+      var response = await Dio().post(
+        Config.url + Config.addToCartURL,
+        data: model.toJson(),
+        options: Options(
+          headers: {
+            HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
+            HttpHeaders.contentTypeHeader : "application/json"
+          }
+        )
+      );
+
+      if (response.statusCode == 200){
+        responseModel = CartResponseModel.fromJson(response.data);
+      }
+
+    } catch (e){
+      print(e.toString());
+    }
+    return responseModel;
+  }
+
+  Future<CartResponseModel?> getCartItems() async {
+    CartResponseModel? responseModel;
+    try{
+      String url = Config.url + Config.cartURL + "?user_id=${Config.userId}" ;
+
+      print(url);
+
+      var response =  await Dio().get(
+        url,
+        options: Options(
+          headers: {
+            HttpHeaders.contentTypeHeader : "application/json"
+          }
+        )
+      );
+
+      if(response.statusCode == 200) {
+        responseModel = CartResponseModel.fromJson(response.data);
+      }
+
+    }catch(e){
+      print(e.toString());
+    }
+
+    return responseModel;
   }
 }
