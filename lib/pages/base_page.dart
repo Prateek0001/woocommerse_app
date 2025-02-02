@@ -57,7 +57,7 @@ class BasePageState<T extends BasePage> extends State<T> {
           Icons.shopping_cart,
           color: Colors.white,
         ),
-        Provider.of<CartProvider>(context, listen: false).CartItems.isEmpty
+        Provider.of<CartProvider>(context, listen: false).cartItems.isEmpty
             ? Container()
             : Positioned(
                 child: Stack(
@@ -71,7 +71,7 @@ class BasePageState<T extends BasePage> extends State<T> {
                       top: 4,
                       right: 4,
                       child: Center(
-                        child: Text(Provider.of<CartProvider>(context, listen: false).CartItems.toString(),style: TextStyle(
+                        child: Text(Provider.of<CartProvider>(context, listen: false).cartItems.toString(),style: TextStyle(
                           color: Colors.white,
                           fontSize: 11,
                           fontWeight: FontWeight.w500

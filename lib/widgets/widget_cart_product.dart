@@ -37,7 +37,9 @@ class CartProduct extends StatelessWidget {
         title: Padding(
           padding: EdgeInsets.all(5),
           child: Text(
-            data?.productName ?? '',
+            data?.variationId == 0
+                ? data?.productName ?? ''
+                : "${data?.productName} (${data?.attributeValue}${data?.attribute})",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
@@ -54,7 +56,6 @@ class CartProduct extends StatelessWidget {
                 onPressed: () {
                   Utils.showMessage(context, Config.appName,
                       "Do you want to delete this item?", "Yes", () {
-                        
                     Provider.of<LoaderProvider>(context, listen: false)
                         .setLoadingStatus(true);
 
@@ -104,7 +105,7 @@ class CartProduct extends StatelessWidget {
               value: data?.qty ?? 0,
               onChanged: (value) {
                 Provider.of<CartProvider>(context, listen: false)
-                    .updateQty(data?.productId ?? 0, value);
+                    .updateQty(data?.productId ?? 0, value,variationId: data?.variationId ?? 0);
               }),
         ),
       );

@@ -38,7 +38,7 @@ class _CartPageState extends State<CartPage> {
 
   Widget _cartItemsList() {
     return Consumer<CartProvider>(builder: (context, cartModel, child) {
-      if (cartModel.CartItems != null && cartModel.CartItems.length > 0) {
+      if (cartModel.cartItems != null && cartModel.cartItems.length > 0) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,10 +50,10 @@ class _CartPageState extends State<CartPage> {
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    itemCount: cartModel.CartItems.length,
+                    itemCount: cartModel.cartItems.length,
                     itemBuilder: (context, index) {
                       return CartProduct(
-                        data: cartModel.CartItems[index],
+                        data: cartModel.cartItems[index],
                       );
                     }),
                 Padding(

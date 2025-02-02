@@ -7,6 +7,7 @@ import 'package:woocommerse_app/models/cart_response_model.dart';
 import 'package:woocommerse_app/models/customer.dart';
 import 'package:woocommerse_app/models/login_model.dart';
 import 'package:woocommerse_app/models/product.dart';
+import 'package:woocommerse_app/models/variable_product.dart';
 
 class ApiService {
   Future<bool> createCustomer(CustomerModel? model) async {
@@ -113,7 +114,7 @@ class ApiService {
   }
 
   Future<CartResponseModel?> addtocart (CartRequestModel model) async {
-    model.userId = int.parse(Config.userId);
+    model.userId = Config.userId;
     CartResponseModel?  responseModel;
     try {
       var response = await Dio().post(
@@ -161,6 +162,29 @@ class ApiService {
       print(e.toString());
     }
 
+    return responseModel;
+  }
+
+
+  Future<List<VariableProduct>?> getVariableProducts (int productId) async{
+    List<VariableProduct>? responseModel ;
+    try {
+      String url = Config.url + Config.productsUrl + "/${productId.toString()}/${Config.variableProductsURL}";
+
+      var response = await Dio().get(url,options: Options(
+        headers: {
+          HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
+          HttpHeaders.contentTypeHeader : "application/json"
+        }
+      ));
+
+      if (response.statusCode == 200){
+        responseModel = (response.data as List).map((e) => VariableProduct.fromJson(e)).toList();
+      }
+
+    }catch (e){
+      print(e.toString());
+    }
     return responseModel;
   }
 }

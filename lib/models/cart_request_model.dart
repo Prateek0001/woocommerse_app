@@ -27,16 +27,19 @@ class CartRequestModel {
 class CartProducts {
   int? productId;
   int? quantity;
+  int? variationId = 0;
 
   CartProducts({
     this.productId,
     this.quantity,
+    this.variationId
   });
 
   factory CartProducts.fromJson(Map<String, dynamic> json) {
     return CartProducts(
       productId: json['product_id'] as int?,
       quantity: json['quantity'] as int?,
+      variationId: json['variation_id'] as int?,
     );
   }
 
@@ -44,6 +47,7 @@ class CartProducts {
     return {
       'product_id': productId,
       'quantity': quantity,
+      'variation_id' : variationId,
     };
   }
 }

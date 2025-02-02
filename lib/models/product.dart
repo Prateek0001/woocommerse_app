@@ -1,7 +1,9 @@
+import 'package:woocommerse_app/models/variable_product.dart';
+
 class Product {
-  final int? id;
+  int? id;
   final String? name;
-  final String? price;
+  String? price;
   final String? regularPrice;
   final String? salePrice;
   final String? description;
@@ -11,6 +13,8 @@ class Product {
   final List<Images>? images;
   final List<Categories>? categories;
   final List<Attributes>? attributes;
+  String? type;
+  VariableProduct? variableProduct;
 
   Product(
       {this.id,
@@ -24,31 +28,33 @@ class Product {
       this.sku,
       this.stockStatus,
       this.salePrice,
-      this.attributes});
+      this.attributes,
+      this.type,
+      this.variableProduct});
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
-      price: json['price'] as String?,
-      regularPrice: json['regular_price'] as String?,
-      salePrice: json['sale_price'] != ""
-          ? json['sale_price'] as String?
-          : json['regular_price'] as String?,
-      description: json['description'] as String?,
-      shortDescription: json['short_description'] as String?,
-      images: (json['images'] as List<dynamic>?)
-          ?.map((img) => Images.fromJson(img))
-          .toList(),
-      categories: (json['categories'] as List<dynamic>?)
-          ?.map((cat) => Categories.fromJson(cat))
-          .toList(),
-      attributes: (json['attributes'] as List<dynamic>?)
-          ?.map((attr) => Attributes.fromJson(attr))
-          .toList(),
-      sku: json['sku'] as String?,
-      stockStatus: json['stock_status'] as String?,
-    );
+        id: json['id'] as int?,
+        name: json['name'] as String?,
+        price: json['price'] as String?,
+        regularPrice: json['regular_price'] as String?,
+        salePrice: json['sale_price'] != ""
+            ? json['sale_price'] as String?
+            : json['regular_price'] as String?,
+        description: json['description'] as String?,
+        shortDescription: json['short_description'] as String?,
+        images: (json['images'] as List<dynamic>?)
+            ?.map((img) => Images.fromJson(img))
+            .toList(),
+        categories: (json['categories'] as List<dynamic>?)
+            ?.map((cat) => Categories.fromJson(cat))
+            .toList(),
+        attributes: (json['attributes'] as List<dynamic>?)
+            ?.map((attr) => Attributes.fromJson(attr))
+            .toList(),
+        sku: json['sku'] as String?,
+        stockStatus: json['stock_status'] as String?,
+        type: json['type'] as String?);
   }
 
   Map<String, dynamic> toJson() {
@@ -68,13 +74,15 @@ class Product {
   }
 
   calculateDiscount() {
-    double regularPrice = double.parse(this.regularPrice ?? '0');
-    double salePrice = this.salePrice != ""
-        ? double.parse(this.salePrice ?? '')
-        : regularPrice;
-    double discount = regularPrice - salePrice;
-    double disPercent = (discount / regularPrice) * 100;
-
+    double disPercent = 0;
+    if (regularPrice != "") {
+      double regularPrice = double.parse(this.regularPrice ?? '0');
+      double salePrice = this.salePrice != ""
+          ? double.parse(this.salePrice ?? '')
+          : regularPrice;
+      double discount = regularPrice - salePrice;
+      disPercent = (discount / regularPrice) * 100;
+    }
     return disPercent.round();
   }
 }

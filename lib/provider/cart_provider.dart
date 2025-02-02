@@ -7,7 +7,7 @@ class CartProvider with ChangeNotifier {
   ApiService? _apiService;
   List<CartItem>? _cartItems;
 
-  List<CartItem> get CartItems => _cartItems ?? [];
+  List<CartItem> get cartItems => _cartItems ?? [];
   double get totalRecords => _cartItems?.length.toDouble() ?? 0;
   double get totalAmount => _cartItems != null
       ? _cartItems!
@@ -30,15 +30,17 @@ class CartProvider with ChangeNotifier {
       CartRequestModel requestModel = CartRequestModel();
       requestModel.products = [];
 
-      if (_cartItems == null) resetStreams();
+      if (_cartItems == null) {
+        await fetchCartItems();
+      }
 
       _cartItems?.forEach((element) {
         requestModel.products?.add(
-            CartProducts(productId: element.productId, quantity: element.qty));
+            CartProducts(productId: element.productId, quantity: element.qty,variationId: element.variationId));
       });
 
       var isProductExists = requestModel.products?.firstWhere(
-        (prd) => prd.productId == product.productId,
+        (prd) => prd.productId == product.productId && prd.variationId == product.variationId,
         orElse: () => CartProducts(),
       );
 
@@ -73,9 +75,9 @@ class CartProvider with ChangeNotifier {
     });
   }
 
-  void updateQty(int productId, int qty) {
+  void updateQty(int productId, int qty,{int variationId = 0}) {
     var isProductExists = _cartItems?.firstWhere(
-        (prd) => prd.productId == productId,
+        (prd) => prd.productId == productId && prd.variationId == variationId,
         orElse: () => CartItem());
 
     if (isProductExists != null) {
@@ -92,7 +94,7 @@ class CartProvider with ChangeNotifier {
 
     _cartItems?.forEach((element) {
       requestModel.products?.add(
-          CartProducts(productId: element.productId, quantity: element.qty));
+          CartProducts(productId: element.productId, quantity: element.qty,variationId: element.variationId));
     });
 
     await _apiService?.addtocart(requestModel).then((cartResponseModel) {

@@ -28,6 +28,9 @@ class CartItem {
   int? qty;
   double? lineSubtotal;
   double? lineTotal;
+  int? variationId;
+  String? attribute;
+  String? attributeValue;
 
   CartItem({
     this.productId,
@@ -38,6 +41,9 @@ class CartItem {
     this.qty,
     this.lineSubtotal,
     this.lineTotal,
+    this.variationId,
+    this.attribute,
+    this.attributeValue,
   });
 
   factory CartItem.fromJson(Map<String, dynamic> json) {
@@ -50,6 +56,9 @@ class CartItem {
       qty: json['qty'] as int?,
       lineSubtotal: (json['line_subtotal'] as num?)?.toDouble(),
       lineTotal: (json['line_total'] as num?)?.toDouble(),
+      variationId: json['variatation_id'],
+      attribute: json['attribute'].toString() != "[]" ? Map<String,dynamic>.from(json["attribute"]).keys.first.toString() : "",
+      attributeValue: json['attribute'].toString() != "[]" ? Map<String,dynamic>.from(json["attribute"]).values.first.toString() : "",
     );
   }
 
@@ -63,6 +72,7 @@ class CartItem {
       'qty': qty,
       'line_subtotal': lineSubtotal,
       'line_total': lineTotal,
+      'variatation_id': variationId
     };
   }
 }

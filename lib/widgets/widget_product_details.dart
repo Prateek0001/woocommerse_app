@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:woocommerse_app/models/cart_request_model.dart';
 import 'package:woocommerse_app/models/product.dart';
+import 'package:woocommerse_app/models/variable_product.dart';
 import 'package:woocommerse_app/provider/cart_provider.dart';
 import 'package:woocommerse_app/provider/loader_provider.dart';
 import 'package:woocommerse_app/utils/custom_stepper.dart';
@@ -10,13 +11,13 @@ import 'package:woocommerse_app/utils/expand_text.dart';
 
 class ProductDetailsWidget extends StatelessWidget {
   Product? data;
-  ProductDetailsWidget({super.key,this.data});
+  List<VariableProduct>? variableProduct;
+  ProductDetailsWidget({super.key, this.data, this.variableProduct});
 
   final CarouselSliderController _controller = CarouselSliderController();
   int qty = 0;
 
   CartProducts cartProducts = CartProducts();
-
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +44,25 @@ class ProductDetailsWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(data?.attributes != null &&
-                              data!.attributes!.isNotEmpty
-                          ? (data!.attributes![0].options.join("-").toString() +
-                              "" +
-                              data!.attributes![0].name)
-                          : ''),
-                      Text(' Rs${data?.salePrice}',
+                      Visibility(
+                        visible: data?.type != "variable",
+                        child: Text(data?.attributes != null &&
+                                data!.attributes!.isNotEmpty
+                            ? (data!.attributes![0].options
+                                    .join("-")
+                                    .toString() +
+                                "" +
+                                data!.attributes![0].name)
+                            : ''),
+                      ),
+                      Visibility(
+                          visible: data?.type == "variable",
+                          child: selectDropdown(context, "", variableProduct,
+                              (VariableProduct value) {
+                            data?.price = value.price;
+                            data?.variableProduct = value;
+                          })),
+                      Text(' Rs${data?.price}',
                           style: TextStyle(
                             fontSize: 25,
                             color: Colors.black,
@@ -74,11 +87,17 @@ class ProductDetailsWidget extends StatelessWidget {
                           }),
                       TextButton(
                         onPressed: () {
-                          Provider.of<LoaderProvider>(context,listen: false).setLoadingStatus(true);
-                          var cartProvider = Provider.of<CartProvider>(context,listen: false);
+                          Provider.of<LoaderProvider>(context, listen: false)
+                              .setLoadingStatus(true);
+                              
+                          var cartProvider =
+                              Provider.of<CartProvider>(context, listen: false);
                           cartProducts.productId = data?.id;
-                          cartProvider.addToCart(cartProducts, (val){
-                            Provider.of<LoaderProvider>(context,listen: false).setLoadingStatus(false);
+                          cartProducts.variationId = data?.variableProduct != null ? data?.variableProduct?.id : 0;
+
+                          cartProvider.addToCart(cartProducts, (val) {
+                            Provider.of<LoaderProvider>(context, listen: false)
+                                .setLoadingStatus(false);
                             print(val);
                           });
                         },
@@ -152,5 +171,55 @@ class ProductDetailsWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  static Widget selectDropdown(
+    BuildContext context,
+    Object initialValue,
+    dynamic data,
+    Function onChanged, {
+    Function? onValidate,
+  }) {
+    return Align(
+        alignment: Alignment.topLeft,
+        child: Container(
+          height: 75,
+          width: 100,
+          padding: EdgeInsets.only(top: 5),
+          child: DropdownButtonFormField<VariableProduct>(
+            hint: Text("Select"),
+            value: null,
+            isDense: true,
+            decoration: fieldDecoration(context, "", ""),
+            onChanged: (VariableProduct? newValue) {
+              FocusScope.of(context).requestFocus(FocusNode());
+              onChanged(newValue);
+            },
+            items: data != null
+                ? data.map<DropdownMenuItem<VariableProduct>>(
+                    (VariableProduct data) {
+                    return DropdownMenuItem<VariableProduct>(
+                        value: data,
+                        child: Text(
+                            "${data.attributes?.first.option} ${data?.attributes?.first?.name}",
+                            style: TextStyle(color: Colors.black)));
+                  }).toList()
+                : null,
+          ),
+        ));
+  }
+
+  static InputDecoration fieldDecoration(
+      BuildContext context, String hintText, String helperText,
+      {Widget? prefixIcon, Widget? suffixIcon}) {
+    return InputDecoration(
+        contentPadding: EdgeInsets.all(6),
+        hintText: hintText,
+        helperText: helperText,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
+        enabledBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: Theme.of(context).primaryColor, width: 1)));
   }
 }
