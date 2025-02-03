@@ -16,8 +16,7 @@ class _CartPageState extends State<CartPage> {
   @override
   void initState() {
     var cartItemsList = Provider.of<CartProvider>(context, listen: false);
-    cartItemsList.resetStreams();
-    cartItemsList.fetchCartItems();
+    //cartItemsList.resetStreams();
     super.initState();
   }
 
@@ -38,107 +37,65 @@ class _CartPageState extends State<CartPage> {
 
   Widget _cartItemsList() {
     return Consumer<CartProvider>(builder: (context, cartModel, child) {
-      if (cartModel.cartItems != null && cartModel.cartItems.length > 0) {
+      if (cartModel.cartItems.isNotEmpty) {
         return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ListView.builder(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: cartModel.cartItems.length,
-                    itemBuilder: (context, index) {
-                      return CartProduct(
-                        data: cartModel.cartItems[index],
-                      );
-                    }),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Provider.of<LoaderProvider>(context,listen: false).setLoadingStatus(true);
-                        var cartProvider = Provider.of<CartProvider>(context,listen: false);
-
-                        cartProvider.updateCart((val){
-                          Provider.of<LoaderProvider>(context,listen: false).setLoadingStatus(false);
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green, // Button color
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(12), // Rounded corners
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: cartModel.cartItems.length,
+                itemBuilder: (context, index) {
+                  return CartProduct(
+                    data: cartModel.cartItems[index],
+                  );
+                }
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                  )
+                ]
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total:',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        spacing: 8, // Space between icon and text
-                        children: [
-                          Icon(
-                            Icons.sync,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            'Update Cart',
-                            style: TextStyle(color: Colors.white),
-                          )
-                        ],
+                      Text(
+                        'Rs ${cartModel.totalAmount.toStringAsFixed(2)}',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                    ),
+                    ],
                   ),
-                ),
-                Container(
-                  color: Colors.white,
-                  width: MediaQuery.of(context).size.width,
-                  height: 100,
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Total',
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w400),
-                            ),
-                            Text('Rs ${cartModel.totalAmount}',style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold
-                            ),)
-                          ],
-                        ),
-                        ElevatedButton(onPressed: (){}, child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text('Checkout',style: TextStyle(color: Colors.white),)
-                          ],
-                        ))
-                      ],
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Checkout logic
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      minimumSize: Size(double.infinity, 50),
                     ),
+                    child: Text('Checkout', style: TextStyle(fontSize: 18)),
                   ),
-                )
-              ],
-            )
+                ],
+              ),
+            ),
           ],
         );
       }
-      return const Center(
-        child: Text("Your cart is empty"),
-      );
+      return Center(child: Text("Your cart is empty"));
     });
   }
 }

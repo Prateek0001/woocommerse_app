@@ -20,7 +20,7 @@ class Utils {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+               // Navigator.of(context).pop();
                 onPressed();
               },
               child: Text(buttonText),
@@ -28,7 +28,7 @@ class Utils {
             if (isConfirmationDiaglog)
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                //  Navigator.of(context).pop();
                   if (onPressed2 != null) onPressed2();
                 },
                 child: Text(buttonText2),

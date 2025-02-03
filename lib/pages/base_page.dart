@@ -57,30 +57,35 @@ class BasePageState<T extends BasePage> extends State<T> {
           Icons.shopping_cart,
           color: Colors.white,
         ),
-        Provider.of<CartProvider>(context, listen: false).cartItems.isEmpty
-            ? Container()
-            : Positioned(
-                child: Stack(
-                  children: [
-                    Icon(
-                      Icons.brightness_1,
-                      size: 20,
-                      color: Colors.green[800],
-                    ),
-                    Positioned(
-                      top: 4,
-                      right: 4,
-                      child: Center(
-                        child: Text(Provider.of<CartProvider>(context, listen: false).cartItems.toString(),style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500
-                        ),),
+        Consumer<CartProvider>(
+          builder: (context, cartProvider, child) {
+            return cartProvider.cartItems.isEmpty
+                ? Container()
+                : Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(6),
                       ),
-                    )
-                  ],
-                ),
-              ),
+                      constraints: BoxConstraints(
+                        minWidth: 12,
+                        minHeight: 12,
+                      ),
+                      child: Text(
+                        '${cartProvider.cartItems.length}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 8,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
+          },
+        ),
         SizedBox(
           width: 10,
         ),

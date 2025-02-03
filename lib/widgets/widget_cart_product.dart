@@ -18,7 +18,7 @@ class CartProduct extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       child: Container(
         decoration: BoxDecoration(color: Colors.white),
-        child: Text("Cart Item"),
+        child: makeListTile(context),
       ),
     );
   }
@@ -41,6 +41,7 @@ class CartProduct extends StatelessWidget {
                 ? data?.productName ?? ''
                 : "${data?.productName} (${data?.attributeValue}${data?.attribute})",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         subtitle: Padding(
@@ -54,20 +55,22 @@ class CartProduct extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Utils.showMessage(context, Config.appName,
-                      "Do you want to delete this item?", "Yes", () {
-                    Provider.of<LoaderProvider>(context, listen: false)
-                        .setLoadingStatus(true);
-
-                    Provider.of<CartProvider>(context, listen: false)
-                        .removeItem(data?.productId ?? 0);
-
-                    Provider.of<LoaderProvider>(context, listen: false)
-                        .setLoadingStatus(false);
-                  },
-                      buttonText2: "No",
-                      isConfirmationDiaglog: true,
-                      onPressed2: () {});
+                  Utils.showMessage(
+                    context, 
+                    Config.appName,
+                    "Do you want to delete this item?", 
+                    "Yes", 
+                    () {
+                      Provider.of<CartProvider>(context, listen: false)
+                          .removeItem(data?.productId ?? 0);
+                      Navigator.of(context).pop();
+                    },
+                    buttonText2: "No",
+                    isConfirmationDiaglog: true,
+                    onPressed2: () {
+                      Navigator.of(context).pop();
+                    }
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.redAccent, // Button color

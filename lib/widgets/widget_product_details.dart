@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:woocommerse_app/models/cart_request_model.dart';
+import 'package:woocommerse_app/models/cart_response_model.dart';
 import 'package:woocommerse_app/models/product.dart';
 import 'package:woocommerse_app/models/variable_product.dart';
 import 'package:woocommerse_app/provider/cart_provider.dart';
@@ -87,19 +88,26 @@ class ProductDetailsWidget extends StatelessWidget {
                           }),
                       TextButton(
                         onPressed: () {
-                          Provider.of<LoaderProvider>(context, listen: false)
-                              .setLoadingStatus(true);
-                              
-                          var cartProvider =
-                              Provider.of<CartProvider>(context, listen: false);
+                          var cartProvider = Provider.of<CartProvider>(context, listen: false);
                           cartProducts.productId = data?.id;
                           cartProducts.variationId = data?.variableProduct != null ? data?.variableProduct?.id : 0;
+                          
+                          CartItem cartItem = CartItem(
+                            productId: data?.id,
+                            productName: data?.name,
+                            qty: cartProducts.quantity,
+                            productRegularPrice: (data?.price ?? "0"),
+                            productSalePrice: (data?.price ?? "0"),
+                            thumbnail: data?.images?.first.src,
+                            variationId: data?.variableProduct?.id ?? 0,
+                            attribute: data?.variableProduct?.attributes?.first.name,
+                            attributeValue: data?.variableProduct?.attributes?.first.option,
+                          );
 
-                          cartProvider.addToCart(cartProducts, (val) {
-                            Provider.of<LoaderProvider>(context, listen: false)
-                                .setLoadingStatus(false);
-                            print(val);
-                          });
+                          cartProvider.addToCart(cartItem);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Added to cart'))
+                          );
                         },
                         child: Container(
                           color: Colors.redAccent,
