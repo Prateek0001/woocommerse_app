@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:woocommerse_app/config.dart';
 import 'package:woocommerse_app/pages/base_page.dart';
 import 'package:woocommerse_app/pages/cart_page.dart';
 import 'package:woocommerse_app/pages/home_page.dart';
 import 'package:woocommerse_app/pages/login_page.dart';
+import 'package:woocommerse_app/pages/orders_page.dart';
 import 'package:woocommerse_app/pages/product_details.dart';
 import 'package:woocommerse_app/pages/product_page.dart';
 import 'package:woocommerse_app/pages/signup_page.dart';
 import 'package:woocommerse_app/provider/cart_provider.dart';
 import 'package:woocommerse_app/provider/loader_provider.dart';
+import 'package:woocommerse_app/provider/order_provider.dart';
 import 'package:woocommerse_app/provider/products_provider.dart';
 
 void main() {
@@ -34,9 +37,12 @@ class MyApp extends StatelessWidget {
 
         ChangeNotifierProvider(create: (context) => CartProvider(),
         child: CartPage(),),
+
+        ChangeNotifierProvider(create: (context) => OrderProvider(),
+        child: OrdersPage(),),
       ],
       child: MaterialApp(
-        title: 'WooCommerce App',
+        title: Config.appName,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

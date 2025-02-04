@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:woocommerse_app/api_service.dart';
+import 'package:woocommerse_app/config.dart';
 import 'package:woocommerse_app/models/customer.dart';
 import 'package:woocommerse_app/utils/ProgressHUD.dart';
 import 'package:woocommerse_app/utils/form_helper.dart';
@@ -128,12 +129,12 @@ class _SignupPageState extends State<SignupPage> {
                         });
 
                         if (ret) {
-                          FormHelper.showMessage(context, "WooCommerce App",
+                          FormHelper.showMessage(context, Config.appName,
                               "Registration Successfull", "Ok", () {
                             Navigator.of(context).pop();
                           });
                         } else {
-                          FormHelper.showMessage(context, "WooCommerce App",
+                          FormHelper.showMessage(context, Config.appName,
                               "Email Id already registered", "Ok", () {
                             Navigator.of(context).pop();
                           });

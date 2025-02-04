@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:woocommerse_app/config.dart';
 import 'package:woocommerse_app/pages/cart_page.dart';
 import 'package:woocommerse_app/pages/dashboard_page.dart';
+import 'package:woocommerse_app/pages/orders_page.dart';
 import 'package:woocommerse_app/pages/payment_screen.dart';
 import 'package:woocommerse_app/pages/product_page.dart';
+import 'package:woocommerse_app/widgets/widget_order_item.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     ProductPage(),
     CartPage(),
     DashboardPage(),
-    PaymentMethodsWidget(),
+    OrdersPage(),
   ];
 
   int _index = 0;

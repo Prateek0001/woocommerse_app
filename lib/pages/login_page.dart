@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:woocommerse_app/api_service.dart';
+import 'package:woocommerse_app/config.dart';
 import 'package:woocommerse_app/utils/ProgressHUD.dart';
 import 'package:woocommerse_app/utils/form_helper.dart';
 
@@ -59,8 +60,8 @@ class _LoginPageState extends State<LoginPage> {
                     color: Colors.white,
                   ),
                   const SizedBox(height: 20),
-                  const Text(
-                    "WooCommerce App",
+                   Text(
+                    Config.appName,
                     style: TextStyle(
                       fontSize: 28,
                       color: Colors.white,
@@ -140,14 +141,14 @@ class _LoginPageState extends State<LoginPage> {
                                 });
                                 FormHelper.showMessage(
                                     context,
-                                    "WooCommerce App",
+                                    Config.appName,
                                     "Login Successfull",
                                     "Ok",
                                     () {});
                               } else {
                                 FormHelper.showMessage(
                                     context,
-                                    "WooCommerce App",
+                                    Config.appName,
                                     "Invalid Login!!",
                                     "Ok",
                                     () {

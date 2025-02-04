@@ -8,6 +8,7 @@ import 'package:woocommerse_app/models/customer.dart';
 import 'package:woocommerse_app/models/customer_detail_model.dart';
 import 'package:woocommerse_app/models/login_model.dart';
 import 'package:woocommerse_app/models/order.dart';
+import 'package:woocommerse_app/models/order_detail.dart';
 import 'package:woocommerse_app/models/product.dart';
 import 'package:woocommerse_app/models/variable_product.dart';
 
@@ -209,12 +210,53 @@ class ApiService {
             HttpHeaders.contentTypeHeader: "application/json"
           }));
 
-          if (response.statusCode == 201){
-            isOrderCreated = true;
-          }
+      if (response.statusCode == 201) {
+        isOrderCreated = true;
+      }
     } catch (e) {
       print(e.toString());
     }
     return isOrderCreated;
+  }
+
+  Future<List<OrderModel>> getOrders() async {
+    List<OrderModel> data = [];
+    try {
+      String url = Config.url + Config.orderURL;
+
+      var response = await Dio().get(url,
+          options: Options(headers: {
+            HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
+            HttpHeaders.contentTypeHeader: "application/json"
+          }));
+
+      if (response.statusCode == 200) {
+        data =
+            (response.data as List).map((i) => OrderModel.fromJson(i)).toList();
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return data;
+  }
+
+  Future<OrderDetailModel> getOrderDetails(int orderId) async {
+    OrderDetailModel responseModel = OrderDetailModel();
+    try {
+      String url = Config.url + Config.orderURL + "/$orderId";
+      var response = await Dio().get(url,
+          options: Options(headers: {
+            HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
+            HttpHeaders.contentTypeHeader: "application/json"
+          }));
+
+      if (response.statusCode == 200) {
+        responseModel = OrderDetailModel.fromJson(response.data);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+
+    return responseModel;
   }
 }
