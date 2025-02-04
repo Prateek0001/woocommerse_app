@@ -5,7 +5,9 @@ import 'package:woocommerse_app/config.dart';
 import 'package:woocommerse_app/models/cart_request_model.dart';
 import 'package:woocommerse_app/models/cart_response_model.dart';
 import 'package:woocommerse_app/models/customer.dart';
+import 'package:woocommerse_app/models/customer_detail_model.dart';
 import 'package:woocommerse_app/models/login_model.dart';
+import 'package:woocommerse_app/models/order.dart';
 import 'package:woocommerse_app/models/product.dart';
 import 'package:woocommerse_app/models/variable_product.dart';
 
@@ -58,81 +60,75 @@ class ApiService {
     return model;
   }
 
-  Future<List<Product>> getProducts({int? pageNumber, int? pageSize, String? strSearch ,String? tagName,String? categoryId, String? sortBy, String? sortOrder = "asc"} ) async{
+  Future<List<Product>> getProducts(
+      {int? pageNumber,
+      int? pageSize,
+      String? strSearch,
+      String? tagName,
+      String? categoryId,
+      String? sortBy,
+      String? sortOrder = "asc"}) async {
     List<Product> data = [];
 
-    try{
-
+    try {
       String parameter = "";
-      if (strSearch != null){
+      if (strSearch != null) {
         parameter += "&search=$strSearch";
       }
-      if (pageSize != null){
+      if (pageSize != null) {
         parameter += "&per_page=$pageSize";
       }
-      if (pageNumber != null){
+      if (pageNumber != null) {
         parameter += "&page=$pageNumber";
       }
-      if (tagName != null){
+      if (tagName != null) {
         parameter += "&tag=$tagName";
       }
-      if (categoryId != null){
+      if (categoryId != null) {
         parameter += "&category=$categoryId";
       }
-      if (sortBy != null){
+      if (sortBy != null) {
         parameter += "&orderby=$sortBy";
       }
-      if (sortOrder != null){
+      if (sortOrder != null) {
         parameter += "&order=$sortOrder";
       }
 
+      String url = Config.url + Config.productsUrl + "?" + parameter.toString();
 
-      String url = Config.url + Config.productsUrl + "?" +parameter.toString();
+      var response = await Dio().get(url,
+          options: Options(headers: {
+            HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
+            HttpHeaders.contentTypeHeader: "application/json"
+          }));
 
-      var response = await Dio().get(
-        url,
-        options: Options(
-          headers: {
-             HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
-            HttpHeaders.contentTypeHeader : "application/json"
-          }
-        )
-        );
-
-        if (response.statusCode == 200) {
-          // convert response.data to List of Product
-          List<dynamic> responseData = response.data;
-      data = responseData.map((json) => Product.fromJson(json)).toList();
-          
-        }
-    } catch(e){
+      if (response.statusCode == 200) {
+        // convert response.data to List of Product
+        List<dynamic> responseData = response.data;
+        data = responseData.map((json) => Product.fromJson(json)).toList();
+      }
+    } catch (e) {
       print(e.toString());
     }
 
     return data;
-    
   }
 
-  Future<CartResponseModel?> addtocart (CartRequestModel model) async {
+  Future<CartResponseModel?> addtocart(CartRequestModel model) async {
     model.userId = Config.userId;
-    CartResponseModel?  responseModel;
+    CartResponseModel? responseModel;
     try {
-      var response = await Dio().post(
-        Config.url + Config.addToCartURL,
-        data: model.toJson(),
-        options: Options(
-          headers: {
+      var response = await Dio().post(Config.url + Config.addToCartURL,
+          data: model.toJson(),
+          options: Options(headers: {
             HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
-            HttpHeaders.contentTypeHeader : "application/json"
-          }
-        )
-      );
+            HttpHeaders.contentTypeHeader: "application/json"
+          }));
 
-      if (response.statusCode == 200){
+      if (response.statusCode == 200) {
         responseModel = CartResponseModel.fromJson(response.data);
       }
-
-    } catch (e){
+    } catch (e) {
       print(e.toString());
     }
     return responseModel;
@@ -140,51 +136,85 @@ class ApiService {
 
   Future<CartResponseModel?> getCartItems() async {
     CartResponseModel? responseModel;
-    try{
-      String url = Config.url + Config.cartURL + "?user_id=${Config.userId}" ;
+    try {
+      String url = Config.url + Config.cartURL + "?user_id=${Config.userId}";
 
       print(url);
 
-      var response =  await Dio().get(
-        url,
-        options: Options(
-          headers: {
-            HttpHeaders.contentTypeHeader : "application/json"
-          }
-        )
-      );
+      var response = await Dio().get(url,
+          options: Options(
+              headers: {HttpHeaders.contentTypeHeader: "application/json"}));
 
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         responseModel = CartResponseModel.fromJson(response.data);
       }
-
-    }catch(e){
+    } catch (e) {
       print(e.toString());
     }
 
     return responseModel;
   }
 
-
-  Future<List<VariableProduct>?> getVariableProducts (int productId) async{
-    List<VariableProduct>? responseModel ;
+  Future<List<VariableProduct>?> getVariableProducts(int productId) async {
+    List<VariableProduct>? responseModel;
     try {
-      String url = Config.url + Config.productsUrl + "/${productId.toString()}/${Config.variableProductsURL}";
+      String url = Config.url +
+          Config.productsUrl +
+          "/${productId.toString()}/${Config.variableProductsURL}";
 
-      var response = await Dio().get(url,options: Options(
-        headers: {
-          HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
-          HttpHeaders.contentTypeHeader : "application/json"
-        }
-      ));
+      var response = await Dio().get(url,
+          options: Options(headers: {
+            HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
+            HttpHeaders.contentTypeHeader: "application/json"
+          }));
 
-      if (response.statusCode == 200){
-        responseModel = (response.data as List).map((e) => VariableProduct.fromJson(e)).toList();
+      if (response.statusCode == 200) {
+        responseModel = (response.data as List)
+            .map((e) => VariableProduct.fromJson(e))
+            .toList();
       }
-
-    }catch (e){
+    } catch (e) {
       print(e.toString());
     }
     return responseModel;
+  }
+
+  Future<CustomerDetailModel?> customerDetails() async {
+    CustomerDetailModel? responseModel;
+    try {
+      String url = Config.url + Config.customerURL + "/${Config.userId}";
+      var response = await Dio().get(url,
+          options: Options(headers: {
+            HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
+            HttpHeaders.contentTypeHeader: "application/json"
+          }));
+
+      if (response.statusCode == 200) {
+        responseModel = CustomerDetailModel.fromJson(response.data);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return responseModel;
+  }
+
+  Future<bool> createOrder(OrderModel? model) async {
+    model?.customerId = Config.userId;
+    bool isOrderCreated = false;
+    try {
+      var response = await Dio().post(Config.url + Config.orderURL,
+          data: model?.toJson(),
+          options: Options(headers: {
+            HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
+            HttpHeaders.contentTypeHeader: "application/json"
+          }));
+
+          if (response.statusCode == 201){
+            isOrderCreated = true;
+          }
+    } catch (e) {
+      print(e.toString());
+    }
+    return isOrderCreated;
   }
 }

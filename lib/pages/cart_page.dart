@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:woocommerse_app/pages/verify_address.dart';
 import 'package:woocommerse_app/provider/cart_provider.dart';
 import 'package:woocommerse_app/provider/loader_provider.dart';
 import 'package:woocommerse_app/utils/ProgressHUD.dart';
@@ -81,7 +82,7 @@ class _CartPageState extends State<CartPage> {
                   SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      // Checkout logic
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyAddress()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,

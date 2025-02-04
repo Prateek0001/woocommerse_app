@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 
 class FormHelper {
   static Widget textInput(
-    BuildContext context,
-    Object initialValue,
-    Function onChanged, {
-    bool isTextArea = false,
-    bool isNumberInput = false,
-    bool obscureText = false,
-    required Function onValidate,
-    Widget? prefixIcon,
-    Widget? suffixIcon,
-  }) {
+      BuildContext context, Object initialValue, Function onChanged,
+      {bool isTextArea = false,
+      bool isNumberInput = false,
+      bool obscureText = false,
+      required Function onValidate,
+      Widget? prefixIcon,
+      Widget? suffixIcon,
+      bool readOnly = false}) {
     return TextFormField(
       initialValue: initialValue != null ? initialValue.toString() : "",
       decoration: fieldDecoration(
@@ -21,6 +19,7 @@ class FormHelper {
         suffixIcon: suffixIcon,
       ),
       obscureText: obscureText,
+      readOnly: readOnly,
       maxLines: !isTextArea ? 1 : 3,
       keyboardType: isNumberInput ? TextInputType.number : TextInputType.text,
       onChanged: (String value) {
@@ -47,13 +46,13 @@ class FormHelper {
       suffixIcon: suffixIcon,
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Theme.of(context).primaryColor,
+          color: Colors.grey,
           width: 1,
         ),
       ),
       border: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Theme.of(context).primaryColor,
+          color: Colors.grey,
           width: 1,
         ),
       ),
@@ -71,6 +70,13 @@ class FormHelper {
         ),
       ),
     );
+  }
+
+  static Widget fieldLabelValue(BuildContext context, String labelName) {
+    return FormHelper.textInput(context, labelName, (value) => {},
+        onValidate: (value) {
+      return null;
+    }, readOnly: true);
   }
 
   static Widget saveButton(

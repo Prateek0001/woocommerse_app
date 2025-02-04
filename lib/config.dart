@@ -11,8 +11,7 @@ class Config {
   static String topSellingProductsTagId = "";
   static String addToCartURL = "addtocart";
   static String cartURL = "cart";
-  static int userId = 5;
+  static int userId = 54;
   static String variableProductsURL = "variations";
-
-  
+  static String orderURL = "orders";  
 }
