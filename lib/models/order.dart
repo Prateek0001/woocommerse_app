@@ -54,10 +54,6 @@ class OrderModel {
         'set_paid': setPaid,
         'transaction_id': transactionId,
         'line_items': lineItems?.map((item) => item.toJson()).toList(),
-        'order_id': orderId,
-        'order_number': orderNumber,
-        'status': status,
-        'order_date': orderDate?.toIso8601String(),
         'shipping': shipping?.toJson(),
       };
 }

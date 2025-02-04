@@ -83,7 +83,7 @@ class PaymentMethodList {
             OrderModel orderModel = OrderModel();
             orderModel.paymentMethod = "cod";
             orderModel.paymentMethodTitle = "Cash on delivery";
-            orderModel.setPaid = true;
+            orderModel.setPaid = false;
             orderProvider.processOrder(orderModel);
 
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> OrderSuccessWidget()), ModalRoute.withName('/OrderSuccess'));
