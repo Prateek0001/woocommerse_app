@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart),label: 'My Cart'),
           BottomNavigationBarItem(icon: Icon(Icons.favorite),label: 'Favorites'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_balance),label: 'My Account'),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle_rounded),label: 'My Account'),
         ],
         selectedItemColor: Colors.redAccent,
         unselectedItemColor: Colors.black,

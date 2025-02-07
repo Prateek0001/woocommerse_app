@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:woocommerse_app/config.dart';
 import 'package:woocommerse_app/models/cart_request_model.dart';
 import 'package:woocommerse_app/models/cart_response_model.dart';
 import 'package:woocommerse_app/models/product.dart';
@@ -42,7 +43,7 @@ class ProductDetailsWidget extends StatelessWidget {
                           color: Colors.black,
                           fontWeight: FontWeight.bold)),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Visibility(
@@ -63,7 +64,8 @@ class ProductDetailsWidget extends StatelessWidget {
                             data?.price = value.price;
                             data?.variableProduct = value;
                           })),
-                      Text(' Rs${data?.price}',
+                          Expanded(child: Container()),
+                      Text(' ${Config.currency}${data?.price}',
                           style: TextStyle(
                             fontSize: 25,
                             color: Colors.black,
@@ -192,7 +194,7 @@ class ProductDetailsWidget extends StatelessWidget {
         alignment: Alignment.topLeft,
         child: Container(
           height: 75,
-          width: 100,
+          width: 120,
           padding: EdgeInsets.only(top: 5),
           child: DropdownButtonFormField<VariableProduct>(
             hint: Text("Select"),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:woocommerse_app/config.dart';
 import 'package:woocommerse_app/models/product.dart';
 import 'package:woocommerse_app/pages/product_details.dart';
 
@@ -80,7 +81,7 @@ class ProductCard extends StatelessWidget {
                   Visibility(
                     visible: data.salePrice != data.regularPrice,
                     child: Text(
-                      'Rs ${data.regularPrice}',
+                      '${Config.currency} ${data.regularPrice}',
                       style: TextStyle(
                         fontSize: 14,
                         decoration: TextDecoration.lineThrough,
@@ -90,7 +91,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Rs ${data.salePrice}',
+                    '${Config.currency} ${data.price}',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.black,

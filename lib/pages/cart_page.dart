@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:woocommerse_app/config.dart';
 import 'package:woocommerse_app/pages/verify_address.dart';
 import 'package:woocommerse_app/provider/cart_provider.dart';
 import 'package:woocommerse_app/provider/loader_provider.dart';
@@ -74,7 +75,7 @@ class _CartPageState extends State<CartPage> {
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        'Rs ${cartModel.totalAmount.toStringAsFixed(2)}',
+                        '${Config.currency} ${cartModel.totalAmount.toStringAsFixed(2)}',
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ],
