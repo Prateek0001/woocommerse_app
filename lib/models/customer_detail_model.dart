@@ -1,9 +1,9 @@
 class CustomerDetailModel {
-  final int? id;
-  final String? firstName;
-  final String? lastName;
-  final Billing? billing;
-  final Shipping? shipping;
+  int? id;
+  String? firstName;
+   String? lastName;
+   Billing? billing;
+   Shipping? shipping;
 
   CustomerDetailModel({
     this.id,
@@ -95,15 +95,15 @@ class Billing {
 }
 
 class Shipping {
-  final String? firstName;
-  final String? lastName;
-  final String? company;
-  final String? address1;
-  final String? address2;
-  final String? city;
-  final String? postcode;
-  final String? country;
-  final String? state;
+   String? firstName;
+   String? lastName;
+   String? company;
+   String? address1;
+   String? address2;
+   String? city;
+   String? postcode;
+   String? country;
+   String? state;
 
   Shipping({
     this.firstName,

@@ -202,20 +202,20 @@ class ApiService {
   Future<bool> createOrder(OrderModel? model) async {
     model?.customerId = Config.userId;
     bool isOrderCreated = false;
-    try {
-      var response = await Dio().post(Config.url + Config.orderURL,
-          data: model?.toJson(),
-          options: Options(headers: {
-            HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
-            HttpHeaders.contentTypeHeader: "application/json"
-          }));
+    // try {
+    //   var response = await Dio().post(Config.url + Config.orderURL,
+    //       data: model?.toJson(),
+    //       options: Options(headers: {
+    //         HttpHeaders.authorizationHeader: 'Basic ${Config.authToken}',
+    //         HttpHeaders.contentTypeHeader: "application/json"
+    //       }));
 
-      if (response.statusCode == 201) {
-        isOrderCreated = true;
-      }
-    } catch (e) {
-      print(e.toString());
-    }
+    //   if (response.statusCode == 201) {
+    //     isOrderCreated = true;
+    //   }
+    // } catch (e) {
+    //   print(e.toString());
+    // }
     return isOrderCreated;
   }
 

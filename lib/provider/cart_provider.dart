@@ -113,4 +113,9 @@ class CartProvider with ChangeNotifier {
       }
     });
   }
+
+  void updateCustomerDetails(CustomerDetailModel model) {
+    _customerDetailModel = model;
+    notifyListeners();
+  }
 }

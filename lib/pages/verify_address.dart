@@ -14,168 +14,280 @@ class VerifyAddress extends CheckoutBasePage {
 }
 
 class _VerifyAddressState extends CheckoutBasePageState<VerifyAddress> {
+  GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+  CustomerDetailModel customerModel = CustomerDetailModel();
+
   @override
   void initState() {
     currentPage = 0;
     var cartProvider = Provider.of<CartProvider>(context, listen: false);
-    cartProvider.fetchShippingDetails();
+    cartProvider.fetchShippingDetails().then((_) {
+      if (cartProvider.customerDetailModel != null) {
+        setState(() {
+          customerModel = cartProvider.customerDetailModel!;
+        });
+      }
+    });
     super.initState();
   }
 
   @override
   Widget pageUI() {
     return Consumer<CartProvider>(
-      builder: (context, customerModel, chuld) {
-        if (customerModel.customerDetailModel?.id != null) {
-          return _formUI(customerModel.customerDetailModel!);
-        }
-
-        return Center(
-          child: CircularProgressIndicator(),
-        );
+      builder: (context, customerProvider, child) {
+        return _formUI(context, customerProvider);
       },
     );
   }
 
-  Widget _formUI(CustomerDetailModel model) {
+  Widget _formUI(BuildContext context, CartProvider customerProvider) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Container(
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: FormHelper.fieldLabel("First Name"),
-                    ),
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: FormHelper.fieldLabel("Last Name"),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: FormHelper.fieldLabelValue(
-                              context, model.firstName ?? '')),
-                    ),
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: FormHelper.fieldLabelValue(
-                            context, model.lastName ?? ''),
+      child: Form(
+        key: globalKey,
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Container(
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FormHelper.fieldLabel("First Name"),
+                            FormHelper.textInput(
+                              context,
+                              customerModel.firstName ?? "",
+                              (String value) {
+                                setState(() {
+                                  customerModel.firstName = value;
+                                });
+                              },
+                              onValidate: (value) {
+                                if (value.toString().isEmpty) {
+                                  return "Please enter First Name";
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                  ],
-                ),
-                FormHelper.fieldLabel("Address"),
-                FormHelper.fieldLabelValue(
-                    context, model.shipping?.address1 ?? ''),
-                FormHelper.fieldLabel("Apartment, suit, etc."),
-                FormHelper.fieldLabelValue(
-                    context, model.shipping?.address2 ?? ''),
-                Row(
-                  children: [
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: FormHelper.fieldLabel("Country"),
-                    ),
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: FormHelper.fieldLabel("State"),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: FormHelper.fieldLabelValue(
-                              context, model.shipping?.country ?? '')),
-                    ),
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: FormHelper.fieldLabelValue(
-                            context, model.shipping?.state ?? ""),
+                      SizedBox(width: 10),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FormHelper.fieldLabel("Last Name"),
+                            FormHelper.textInput(
+                              context,
+                              customerModel.lastName ?? "",
+                              (String value) {
+                                setState(() {
+                                  customerModel.lastName = value;
+                                });
+                              },
+                              onValidate: (value) {
+                                if (value.toString().isEmpty) {
+                                  return "Please enter Last Name";
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: FormHelper.fieldLabel("City"),
-                    ),
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: FormHelper.fieldLabel("Postcode"),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: FormHelper.fieldLabelValue(
-                              context, model.shipping?.city ?? "")),
-                    ),
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: FormHelper.fieldLabelValue(
-                            context, model.shipping?.postcode ?? ""),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  FormHelper.fieldLabel("Address"),
+                  FormHelper.textInput(
+                    context,
+                    customerModel.shipping?.address1 ?? "",
+                    (value) {
+                      if (customerModel.shipping == null) {
+                        customerModel.shipping = Shipping();
+                      }
+                      customerModel.shipping?.address1 = value;
+                    },
+                    onValidate: (value) {
+                      if (value.toString().isEmpty) {
+                        return "Please enter Address";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 10),
+                  FormHelper.fieldLabel("Apartment, suite, etc."),
+                  FormHelper.textInput(
+                    context,
+                    customerModel.shipping?.address2 ?? "",
+                    (value) {
+                      if (customerModel.shipping == null) {
+                        customerModel.shipping = Shipping();
+                      }
+                      customerModel.shipping?.address2 = value;
+                    },
+                    onValidate: (value) => null,
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FormHelper.fieldLabel("Country"),
+                            FormHelper.textInput(
+                              context,
+                              customerModel.shipping?.country ?? "",
+                              (value) {
+                                if (customerModel.shipping == null) {
+                                  customerModel.shipping = Shipping();
+                                }
+                                customerModel.shipping?.country = value;
+                              },
+                              onValidate: (value) {
+                                if (value.toString().isEmpty) {
+                                  return "Please enter Country";
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
                       ),
+                      SizedBox(width: 10),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FormHelper.fieldLabel("State"),
+                            FormHelper.textInput(
+                              context,
+                              customerModel.shipping?.state ?? "",
+                              (value) {
+                                if (customerModel.shipping == null) {
+                                  customerModel.shipping = Shipping();
+                                }
+                                customerModel.shipping?.state = value;
+                              },
+                              onValidate: (value) {
+                                if (value.toString().isEmpty) {
+                                  return "Please enter State";
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FormHelper.fieldLabel("City"),
+                            FormHelper.textInput(
+                              context,
+                              customerModel.shipping?.city ?? "",
+                              (value) {
+                                if (customerModel.shipping == null) {
+                                  customerModel.shipping = Shipping();
+                                }
+                                customerModel.shipping?.city = value;
+                              },
+                              onValidate: (value) {
+                                if (value.toString().isEmpty) {
+                                  return "Please enter City";
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FormHelper.fieldLabel("Postcode"),
+                            FormHelper.textInput(
+                              context,
+                              customerModel.shipping?.postcode ?? "",
+                              (value) {
+                                if (customerModel.shipping == null) {
+                                  customerModel.shipping = Shipping();
+                                }
+                                customerModel.shipping?.postcode = value;
+                              },
+                              onValidate: (value) {
+                                if (value.toString().isEmpty) {
+                                  return "Please enter Postcode";
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Center(
+                    child: FormHelper.saveButton(
+                      "Next",
+                      () {
+                        if (validateAndSave()) {
+                          print("First Name: ${customerModel.firstName}");
+                          print("Last Name: ${customerModel.lastName}");
+                          customerProvider.updateCustomerDetails(customerModel);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PaymentMethodsWidget(),
+                            ),
+                          );
+                        }
+                      },
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Center(
-                  child: FormHelper.saveButton("Next", () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const PaymentMethodsWidget()
-                      )
-                    );
-                  }),
-                )
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  bool validateAndSave() {
+    final form = globalKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
   }
 }
