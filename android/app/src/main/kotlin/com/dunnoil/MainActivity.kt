@@ -1,4 +1,4 @@
-package com.dunnoilnew
+package com.dunnoil
 
 import io.flutter.embedding.android.FlutterActivity
 
