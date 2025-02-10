@@ -90,7 +90,8 @@ class ProductDetailsWidget extends StatelessWidget {
                           }),
                       TextButton(
                         onPressed: () {
-                          var cartProvider = Provider.of<CartProvider>(context, listen: false);
+                          if(cartProducts.quantity!=null&&cartProducts.quantity!=0){
+var cartProvider = Provider.of<CartProvider>(context, listen: false);
                           cartProducts.productId = data?.id;
                           cartProducts.variationId = data?.variableProduct != null ? data?.variableProduct?.id : 0;
                           
@@ -110,6 +111,12 @@ class ProductDetailsWidget extends StatelessWidget {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Added to cart'))
                           );
+                          }else{
+                             ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Please select at least one item to add to your cart.'))
+                          );
+                          }
+                          
                         },
                         child: Container(
                           color: Colors.blue,

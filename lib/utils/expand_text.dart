@@ -33,7 +33,7 @@ class _ExpandTextState extends State<ExpandText> {
           Align(
             child: GestureDetector(
               child: Text(
-                descTextShowFlag ? "Show Less" : "Show More",
+                descTextShowFlag ? "Show More" : "Show Less",
                 style: TextStyle(color: Colors.blue),
               ),
               onTap: (){
