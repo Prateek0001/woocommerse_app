@@ -1,4 +1,4 @@
-import 'package:woocommerse_app/models/customer_detail_model.dart';
+import 'package:dunn_oil/models/customer_detail_model.dart';
 
 class OrderModel {
   int? customerId;

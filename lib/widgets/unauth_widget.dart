@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:woocommerse_app/pages/checkout_base.dart';
-import 'package:woocommerse_app/pages/home_page.dart';
-import 'package:woocommerse_app/pages/login_page.dart';
-import 'package:woocommerse_app/provider/cart_provider.dart';
+import 'package:dunn_oil/pages/checkout_base.dart';
+import 'package:dunn_oil/pages/home_page.dart';
+import 'package:dunn_oil/pages/login_page.dart';
+import 'package:dunn_oil/provider/cart_provider.dart';
 
 class UnAuthWidget extends StatelessWidget {
   @override

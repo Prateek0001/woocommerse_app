@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:woocommerse_app/models/order.dart';
-import 'package:woocommerse_app/provider/order_provider.dart';
-import 'package:woocommerse_app/widgets/widget_order_item.dart';
+import 'package:dunn_oil/models/order.dart';
+import 'package:dunn_oil/provider/order_provider.dart';
+import 'package:dunn_oil/widgets/widget_order_item.dart';
 
 class OrdersPage extends StatefulWidget {
   const OrdersPage({super.key});

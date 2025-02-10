@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:woocommerse_app/models/order.dart';
-import 'package:woocommerse_app/pages/order_detail.dart';
+import 'package:dunn_oil/models/order.dart';
+import 'package:dunn_oil/pages/order_detail.dart';
 
 class WidgetOrderItem extends StatelessWidget {
   final OrderModel orderModel;

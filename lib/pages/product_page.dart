@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:woocommerse_app/api_service.dart';
-import 'package:woocommerse_app/models/product.dart';
-import 'package:woocommerse_app/pages/base_page.dart';
-import 'package:woocommerse_app/provider/products_provider.dart';
-import 'package:woocommerse_app/widgets/widget_product_card.dart';
+import 'package:dunn_oil/api_service.dart';
+import 'package:dunn_oil/models/product.dart';
+import 'package:dunn_oil/pages/base_page.dart';
+import 'package:dunn_oil/provider/products_provider.dart';
+import 'package:dunn_oil/widgets/widget_product_card.dart';
 
 class ProductPage extends BasePage {
   const ProductPage({super.key});

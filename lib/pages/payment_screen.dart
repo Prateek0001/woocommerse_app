@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:woocommerse_app/models/payment_method.dart';
-import 'package:woocommerse_app/pages/base_page.dart';
-import 'package:woocommerse_app/pages/checkout_base.dart';
-import 'package:woocommerse_app/widgets/widget_payment_method_list_item.dart';
+import 'package:dunn_oil/models/payment_method.dart';
+import 'package:dunn_oil/pages/base_page.dart';
+import 'package:dunn_oil/pages/checkout_base.dart';
+import 'package:dunn_oil/widgets/widget_payment_method_list_item.dart';
 
 class PaymentMethodsWidget extends CheckoutBasePage {
   const PaymentMethodsWidget({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:woocommerse_app/provider/loader_provider.dart';
-import 'package:woocommerse_app/utils/ProgressHUD.dart';
-import 'package:woocommerse_app/utils/widget_checkpoints.dart';
+import 'package:dunn_oil/provider/loader_provider.dart';
+import 'package:dunn_oil/utils/ProgressHUD.dart';
+import 'package:dunn_oil/utils/widget_checkpoints.dart';
 
 class CheckoutBasePage extends StatefulWidget {
   const CheckoutBasePage({super.key});

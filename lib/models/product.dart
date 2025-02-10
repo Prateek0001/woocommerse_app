@@ -1,4 +1,4 @@
-import 'package:woocommerse_app/models/variable_product.dart';
+import 'package:dunn_oil/models/variable_product.dart';
 
 class Product {
   int? id;

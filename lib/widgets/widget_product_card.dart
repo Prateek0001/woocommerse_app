@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:woocommerse_app/config.dart';
-import 'package:woocommerse_app/models/product.dart';
-import 'package:woocommerse_app/pages/product_details.dart';
+import 'package:dunn_oil/config.dart';
+import 'package:dunn_oil/models/product.dart';
+import 'package:dunn_oil/pages/product_details.dart';
 
 class ProductCard extends StatelessWidget {
   final Product data;

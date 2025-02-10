@@ -1,15 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:woocommerse_app/config.dart';
-import 'package:woocommerse_app/models/cart_request_model.dart';
-import 'package:woocommerse_app/models/cart_response_model.dart';
-import 'package:woocommerse_app/models/product.dart';
-import 'package:woocommerse_app/models/variable_product.dart';
-import 'package:woocommerse_app/provider/cart_provider.dart';
-import 'package:woocommerse_app/provider/loader_provider.dart';
-import 'package:woocommerse_app/utils/custom_stepper.dart';
-import 'package:woocommerse_app/utils/expand_text.dart';
+import 'package:dunn_oil/config.dart';
+import 'package:dunn_oil/models/cart_request_model.dart';
+import 'package:dunn_oil/models/cart_response_model.dart';
+import 'package:dunn_oil/models/product.dart';
+import 'package:dunn_oil/models/variable_product.dart';
+import 'package:dunn_oil/provider/cart_provider.dart';
+import 'package:dunn_oil/provider/loader_provider.dart';
+import 'package:dunn_oil/utils/custom_stepper.dart';
+import 'package:dunn_oil/utils/expand_text.dart';
 
 class ProductDetailsWidget extends StatelessWidget {
   Product? data;

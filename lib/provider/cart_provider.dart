@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:woocommerse_app/api_service.dart';
-import 'package:woocommerse_app/models/cart_response_model.dart';
-import 'package:woocommerse_app/models/customer_detail_model.dart';
-import 'package:woocommerse_app/models/order.dart';
+import 'package:dunn_oil/api_service.dart';
+import 'package:dunn_oil/models/cart_response_model.dart';
+import 'package:dunn_oil/models/customer_detail_model.dart';
+import 'package:dunn_oil/models/order.dart';
 
 class CartProvider with ChangeNotifier {
   List<CartItem> _cartItems = [];

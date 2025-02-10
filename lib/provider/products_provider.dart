@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:woocommerse_app/api_service.dart';
-import 'package:woocommerse_app/models/product.dart';
+import 'package:dunn_oil/api_service.dart';
+import 'package:dunn_oil/models/product.dart';
 
 class ProductsProvider with ChangeNotifier {
   ApiService? _apiService;

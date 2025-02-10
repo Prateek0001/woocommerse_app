@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:woocommerse_app/api_service.dart';
-import 'package:woocommerse_app/config.dart';
-import 'package:woocommerse_app/models/order_detail.dart';
-import 'package:woocommerse_app/pages/base_page.dart';
-import 'package:woocommerse_app/utils/widget_checkpoints.dart';
+import 'package:dunn_oil/api_service.dart';
+import 'package:dunn_oil/config.dart';
+import 'package:dunn_oil/models/order_detail.dart';
+import 'package:dunn_oil/pages/base_page.dart';
+import 'package:dunn_oil/utils/widget_checkpoints.dart';
 
 class OrderDetailPage extends BasePage {
   final int orderId;

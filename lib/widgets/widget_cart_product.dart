@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:woocommerse_app/config.dart';
-import 'package:woocommerse_app/models/cart_response_model.dart';
-import 'package:woocommerse_app/provider/cart_provider.dart';
-import 'package:woocommerse_app/provider/loader_provider.dart';
-import 'package:woocommerse_app/utils/custom_stepper.dart';
-import 'package:woocommerse_app/utils/utils.dart';
+import 'package:dunn_oil/config.dart';
+import 'package:dunn_oil/models/cart_response_model.dart';
+import 'package:dunn_oil/provider/cart_provider.dart';
+import 'package:dunn_oil/provider/loader_provider.dart';
+import 'package:dunn_oil/utils/custom_stepper.dart';
+import 'package:dunn_oil/utils/utils.dart';
 
 class CartProduct extends StatelessWidget {
   CartItem? data;

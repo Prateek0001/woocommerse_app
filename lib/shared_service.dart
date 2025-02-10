@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:woocommerse_app/models/login_model.dart';
+import 'package:dunn_oil/models/login_model.dart';
 
 class SharedService {
 

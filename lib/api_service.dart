@@ -1,16 +1,16 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:woocommerse_app/config.dart';
-import 'package:woocommerse_app/models/cart_request_model.dart';
-import 'package:woocommerse_app/models/cart_response_model.dart';
-import 'package:woocommerse_app/models/customer.dart';
-import 'package:woocommerse_app/models/customer_detail_model.dart';
-import 'package:woocommerse_app/models/login_model.dart';
-import 'package:woocommerse_app/models/order.dart';
-import 'package:woocommerse_app/models/order_detail.dart';
-import 'package:woocommerse_app/models/product.dart';
-import 'package:woocommerse_app/models/variable_product.dart';
+import 'package:dunn_oil/config.dart';
+import 'package:dunn_oil/models/cart_request_model.dart';
+import 'package:dunn_oil/models/cart_response_model.dart';
+import 'package:dunn_oil/models/customer.dart';
+import 'package:dunn_oil/models/customer_detail_model.dart';
+import 'package:dunn_oil/models/login_model.dart';
+import 'package:dunn_oil/models/order.dart';
+import 'package:dunn_oil/models/order_detail.dart';
+import 'package:dunn_oil/models/product.dart';
+import 'package:dunn_oil/models/variable_product.dart';
 
 class ApiService {
   Future<bool> createCustomer(CustomerModel? model) async {

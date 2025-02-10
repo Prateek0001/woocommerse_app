@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:woocommerse_app/config.dart';
-import 'package:woocommerse_app/pages/verify_address.dart';
-import 'package:woocommerse_app/provider/cart_provider.dart';
-import 'package:woocommerse_app/provider/loader_provider.dart';
-import 'package:woocommerse_app/utils/ProgressHUD.dart';
-import 'package:woocommerse_app/widgets/widget_cart_product.dart';
+import 'package:dunn_oil/config.dart';
+import 'package:dunn_oil/pages/verify_address.dart';
+import 'package:dunn_oil/provider/cart_provider.dart';
+import 'package:dunn_oil/provider/loader_provider.dart';
+import 'package:dunn_oil/utils/ProgressHUD.dart';
+import 'package:dunn_oil/widgets/widget_cart_product.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});

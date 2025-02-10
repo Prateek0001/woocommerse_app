@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:woocommerse_app/models/payment_method.dart';
+import 'package:dunn_oil/models/payment_method.dart';
 
 class PaymentMethodListItem extends StatelessWidget {
   PaymentMethod? paymentMethod;
