@@ -39,56 +39,56 @@ class BasePageState<T extends BasePage> extends State<T> {
     return AppBar(
       centerTitle: true,
       elevation: 0,
-      backgroundColor: Colors.redAccent,
+      backgroundColor: Colors.blue,
       automaticallyImplyLeading: true,
       title: Text(
         Config.appName,
         style: TextStyle(color: Colors.white),
       ),
       actions: [
-        Icon(
-          Icons.notifications_none,
-          color: Colors.white,
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Icon(
-          Icons.shopping_cart,
-          color: Colors.white,
-        ),
-        Consumer<CartProvider>(
-          builder: (context, cartProvider, child) {
-            return cartProvider.cartItems.isEmpty
-                ? Container()
-                : Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Container(
-                      padding: EdgeInsets.all(1),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      constraints: BoxConstraints(
-                        minWidth: 12,
-                        minHeight: 12,
-                      ),
-                      child: Text(
-                        '${cartProvider.cartItems.length}',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 8,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  );
-          },
-        ),
-        SizedBox(
-          width: 10,
-        ),
+        // Icon(
+        //   Icons.notifications_none,
+        //   color: Colors.white,
+        // ),
+        // SizedBox(
+        //   width: 10,
+        // ),
+        // Icon(
+        //   Icons.shopping_cart,
+        //   color: Colors.white,
+        // ),
+        // Consumer<CartProvider>(
+        //   builder: (context, cartProvider, child) {
+        //     return cartProvider.cartItems.isEmpty
+        //         ? Container()
+        //         : Positioned(
+        //             top: 0,
+        //             right: 0,
+        //             child: Container(
+        //               padding: EdgeInsets.all(1),
+        //               decoration: BoxDecoration(
+        //                 color: Colors.red,
+        //                 borderRadius: BorderRadius.circular(6),
+        //               ),
+        //               constraints: BoxConstraints(
+        //                 minWidth: 12,
+        //                 minHeight: 12,
+        //               ),
+        //               child: Text(
+        //                 '${cartProvider.cartItems.length}',
+        //                 style: TextStyle(
+        //                   color: Colors.white,
+        //                   fontSize: 8,
+        //                 ),
+        //                 textAlign: TextAlign.center,
+        //               ),
+        //             ),
+        //           );
+        //   },
+        // ),
+        // SizedBox(
+        //   width: 10,
+        // ),
       ],
     );
   }

@@ -6,7 +6,7 @@ class Config {
   static String currency = "\$";
   static String customerURL = "customers";
   static String tokenURL = "https://dunnheatingoil.com/wp-json/jwt-token/v1/token";
-  static String appName = "Dunn Heating Oil App";
+  static String appName = "Dunn Heating Oil";
   static String productsUrl = "products";
   static String todayOffersTagId = "";
   static String topSellingProductsTagId = "";

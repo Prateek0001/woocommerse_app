@@ -29,39 +29,39 @@ class _PaymentMethodsWidgetState extends CheckoutBasePageState<PaymentMethodsWid
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-          SizedBox(height: 15),
-          if (list.paymentList.isNotEmpty)
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: ListTile(
-                contentPadding: EdgeInsets.symmetric(vertical: 0),
-                leading: Icon(
-                  Icons.payment,
-                  color: Theme.of(context).hintColor,
-                ),
-                title: Text(
-                  "Payment Options",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                subtitle: Text("Select your preferred Payment Mode"),
-              ),
-            ),
-          SizedBox(height: 10),
-          ListView.separated(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            primary: false,
-            itemBuilder: (context, index) {
-              return PaymentMethodListItem(
-                paymentMethod: list.paymentList[index],
-              );
-            },
-            separatorBuilder: (context, index) {
-              return SizedBox(height: 10);
-            },
-            itemCount: list.paymentList.length
-          ),
+          //SizedBox(height: 15),
+          // if (list.paymentList.isNotEmpty)
+          //   Padding(
+          //     padding: EdgeInsets.symmetric(horizontal: 20),
+          //     child: ListTile(
+          //       contentPadding: EdgeInsets.symmetric(vertical: 0),
+          //       leading: Icon(
+          //         Icons.payment,
+          //         color: Theme.of(context).hintColor,
+          //       ),
+          //       title: Text(
+          //         "Payment Options",
+          //         maxLines: 1,
+          //         overflow: TextOverflow.ellipsis,
+          //       ),
+          //       subtitle: Text("Select your preferred Payment Mode"),
+          //     ),
+          //   ),
+          // SizedBox(height: 10),
+          // ListView.separated(
+          //   scrollDirection: Axis.vertical,
+          //   shrinkWrap: true,
+          //   primary: false,
+          //   itemBuilder: (context, index) {
+          //     return PaymentMethodListItem(
+          //       paymentMethod: list.paymentList[index],
+          //     );
+          //   },
+          //   separatorBuilder: (context, index) {
+          //     return SizedBox(height: 10);
+          //   },
+          //   itemCount: list.paymentList.length
+          // ),
           SizedBox(height: 15),
           if (list.cashList.isNotEmpty)
             Padding(

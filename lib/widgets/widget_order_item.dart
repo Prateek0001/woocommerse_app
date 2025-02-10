@@ -26,7 +26,7 @@ class WidgetOrderItem extends StatelessWidget {
               iconText(
                   Icon(
                     Icons.edit,
-                    color: Colors.redAccent,
+                    color: Colors.blue,
                   ),
                   Text(
                     "Order ID",
@@ -47,7 +47,7 @@ class WidgetOrderItem extends StatelessWidget {
               iconText(
                   Icon(
                     Icons.today,
-                    color: Colors.redAccent,
+                    color: Colors.blue,
                   ),
                   Text(
                     "Order Date",
@@ -120,11 +120,11 @@ class WidgetOrderItem extends StatelessWidget {
       icon = Icon(Icons.check,color: Colors.green,);
       color = Colors.green;
     } else if (status == "cancelled" || status == "refunded" || status == "failed"){
-      icon = Icon(Icons.clear,color: Colors.redAccent,);
-      color = Colors.redAccent;
+      icon = Icon(Icons.clear,color: Colors.blue,);
+      color = Colors.blue;
     } else {
-      icon = Icon(Icons.clear,color: Colors.redAccent,);
-      color = Colors.redAccent;
+      icon = Icon(Icons.clear,color: Colors.blue,);
+      color = Colors.blue;
     }
 
     return iconText(icon, Text("Order $status",style: TextStyle(fontSize: 15,color: color,fontWeight: FontWeight.bold),));

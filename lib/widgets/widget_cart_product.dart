@@ -25,15 +25,15 @@ class CartProduct extends StatelessWidget {
 
   ListTile makeListTile(BuildContext context) => ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        leading: Container(
-          width: 50,
-          height: 150,
-          alignment: Alignment.center,
-          child: Image.network(
-            data?.thumbnail ?? '',
-            height: 150,
-          ),
-        ),
+        // leading: Container(
+        //   width: 50,
+        //   height: 150,
+        //   alignment: Alignment.center,
+        //   child: Image.network(
+        //     data?.thumbnail ?? '',
+        //     height: 150,
+        //   ),
+        // ),
         title: Padding(
           padding: EdgeInsets.all(5),
           child: Text(
@@ -41,7 +41,7 @@ class CartProduct extends StatelessWidget {
                 ? data?.productName ?? ''
                 : "${data?.productName} (${data?.attributeValue}${data?.attribute})",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            overflow: TextOverflow.ellipsis,
+            // overflow: TextOverflow.ellipsis,
           ),
         ),
         subtitle: Padding(
@@ -50,7 +50,7 @@ class CartProduct extends StatelessWidget {
             direction: Axis.vertical,
             children: [
               Text(
-                "${data?.productSalePrice.toString()}",
+                "${Config.currency} ${data?.productSalePrice.toString()}",
                 style: TextStyle(color: Colors.black),
               ),
               ElevatedButton(
@@ -73,11 +73,11 @@ class CartProduct extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent, // Button color
+                  backgroundColor: Colors.blue, // Button color
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12), // Rounded corners
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +87,7 @@ class CartProduct extends StatelessWidget {
                       color: Colors.white,
                       size: 20,
                     ),
-                    SizedBox(width: 8), // Space between icon and text
+                    SizedBox(width: 4), // Space between icon and text
                     Text(
                       "Remove",
                       style: TextStyle(color: Colors.white),

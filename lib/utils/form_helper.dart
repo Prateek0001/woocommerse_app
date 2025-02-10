@@ -96,11 +96,11 @@ class FormHelper {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.redAccent,
+              color: Colors.blue,
               style: BorderStyle.solid,
               width: 1.0,
             ),
-            color: Colors.redAccent,
+            color: Colors.blue,
             borderRadius: BorderRadius.circular(30.0),
           ),
           child: Row(

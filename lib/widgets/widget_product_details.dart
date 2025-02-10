@@ -112,7 +112,7 @@ class ProductDetailsWidget extends StatelessWidget {
                           );
                         },
                         child: Container(
-                          color: Colors.redAccent,
+                          color: Colors.blue,
                           padding: const EdgeInsets.all(15),
                           child: const Text(
                             'Add to Cart',
@@ -194,7 +194,7 @@ class ProductDetailsWidget extends StatelessWidget {
         alignment: Alignment.topLeft,
         child: Container(
           height: 75,
-          width: 120,
+          width: 185,
           padding: EdgeInsets.only(top: 5),
           child: DropdownButtonFormField<VariableProduct>(
             hint: Text("Select"),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:woocommerse_app/config.dart';
+import 'package:woocommerse_app/pages/about_page.dart';
 import 'package:woocommerse_app/pages/cart_page.dart';
 import 'package:woocommerse_app/pages/dashboard_page.dart';
 import 'package:woocommerse_app/pages/orders_page.dart';
@@ -16,9 +17,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Widget> _widgetList = [
+    AboutPage(),
     ProductPage(),
     CartPage(),
-    DashboardPage(),
+    //DashboardPage(),
     OrdersPage(),
   ];
 
@@ -31,11 +33,11 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_bag),label: 'Place Order'),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart),label: 'My Cart'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite),label: 'Favorites'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle_rounded),label: 'My Account'),
+          BottomNavigationBarItem(icon: Icon(Icons.add_home_work),label: 'My Orders'),
         ],
-        selectedItemColor: Colors.redAccent,
+        selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.black,
         type: BottomNavigationBarType.shifting,
         currentIndex: _index,
@@ -53,27 +55,27 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
       centerTitle: true,
       elevation: 0,
-      backgroundColor: Colors.redAccent,
+      backgroundColor: Colors.blue,
       automaticallyImplyLeading: false,
       title: Text(
         Config.appName,
         style: TextStyle(color: Colors.white),
       ),
       actions: [
-        Icon(
-          Icons.notifications_none,
-          color: Colors.white,
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Icon(
-          Icons.shopping_cart,
-          color: Colors.white,
-        ),
-        SizedBox(
-          width: 10,
-        ),
+        // Icon(
+        //   Icons.notifications_none,
+        //   color: Colors.white,
+        // ),
+        // SizedBox(
+        //   width: 10,
+        // ),
+        // Icon(
+        //   Icons.shopping_cart,
+        //   color: Colors.white,
+        // ),
+        // SizedBox(
+        //   width: 10,
+        // ),
       ],
     );
   }

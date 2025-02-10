@@ -80,7 +80,7 @@ class _OrderDetailPageState extends BasePageState<OrderDetailPage> {
           CheckPoints(
             checkedTill: 0,
             checkPoints: ["Processing", "Shipping", "Delivered"],
-            checkPointFilledColor: Colors.redAccent,
+            checkPointFilledColor: Colors.blue,
           ),
           Divider(
             color: Colors.grey,
@@ -145,7 +145,7 @@ class _OrderDetailPageState extends BasePageState<OrderDetailPage> {
 extension CustomStyles on TextTheme {
   TextStyle get labelHeading {
     return TextStyle(
-        fontSize: 16, color: Colors.redAccent, fontWeight: FontWeight.bold);
+        fontSize: 16, color: Colors.blue, fontWeight: FontWeight.bold);
   }
 
   TextStyle get labelText {

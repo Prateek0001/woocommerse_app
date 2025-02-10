@@ -30,7 +30,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.blue,
         automaticallyImplyLeading: true,
         title: Text("Sign Up"),
       ),

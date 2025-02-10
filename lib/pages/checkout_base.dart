@@ -32,6 +32,7 @@ class CheckoutBasePageState<T extends CheckoutBasePage> extends State<T> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(height: 10,),
                 CheckPoints(
                   checkedTill: currentPage,
                   checkPoints: ["Shipping", "Paymenet", "Order"],
@@ -52,7 +53,7 @@ class CheckoutBasePageState<T extends CheckoutBasePage> extends State<T> {
     return AppBar(
       centerTitle: true,
       elevation: 0,
-      backgroundColor: Colors.redAccent,
+      backgroundColor: Colors.blue,
       automaticallyImplyLeading: showBackButton,
       title: Text(
         "Checkout",

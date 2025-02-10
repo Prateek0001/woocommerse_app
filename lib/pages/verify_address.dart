@@ -60,7 +60,7 @@ class _VerifyAddressState extends CheckoutBasePageState<VerifyAddress> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            FormHelper.fieldLabel("First Name"),
+                            FormHelper.fieldLabel("First Name*"),
                             FormHelper.textInput(
                               context,
                               customerModel.firstName ?? "",
@@ -86,7 +86,7 @@ class _VerifyAddressState extends CheckoutBasePageState<VerifyAddress> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            FormHelper.fieldLabel("Last Name"),
+                            FormHelper.fieldLabel("Last Name*"),
                             FormHelper.textInput(
                               context,
                               customerModel.lastName ?? "",
@@ -108,7 +108,7 @@ class _VerifyAddressState extends CheckoutBasePageState<VerifyAddress> {
                     ],
                   ),
                   SizedBox(height: 10),
-                  FormHelper.fieldLabel("Address"),
+                  FormHelper.fieldLabel("Address*"),
                   FormHelper.textInput(
                     context,
                     customerModel.shipping?.address1 ?? "",
@@ -126,7 +126,7 @@ class _VerifyAddressState extends CheckoutBasePageState<VerifyAddress> {
                     },
                   ),
                   SizedBox(height: 10),
-                  FormHelper.fieldLabel("Apartment, suite, etc."),
+                  FormHelper.fieldLabel("Apartment, suite, etc.*"),
                   FormHelper.textInput(
                     context,
                     customerModel.shipping?.address2 ?? "",
@@ -147,7 +147,7 @@ class _VerifyAddressState extends CheckoutBasePageState<VerifyAddress> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            FormHelper.fieldLabel("Country"),
+                            FormHelper.fieldLabel("Country*"),
                             FormHelper.textInput(
                               context,
                               customerModel.shipping?.country ?? "",
@@ -174,7 +174,7 @@ class _VerifyAddressState extends CheckoutBasePageState<VerifyAddress> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            FormHelper.fieldLabel("State"),
+                            FormHelper.fieldLabel("State*"),
                             FormHelper.textInput(
                               context,
                               customerModel.shipping?.state ?? "",
@@ -205,7 +205,7 @@ class _VerifyAddressState extends CheckoutBasePageState<VerifyAddress> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            FormHelper.fieldLabel("City"),
+                            FormHelper.fieldLabel("City*"),
                             FormHelper.textInput(
                               context,
                               customerModel.shipping?.city ?? "",
@@ -232,7 +232,7 @@ class _VerifyAddressState extends CheckoutBasePageState<VerifyAddress> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            FormHelper.fieldLabel("Postcode"),
+                            FormHelper.fieldLabel("Postcode*"),
                             FormHelper.textInput(
                               context,
                               customerModel.shipping?.postcode ?? "",
